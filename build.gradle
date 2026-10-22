@@ -166,7 +166,7 @@ dependencies {
   implementation group: 'com.github.hmcts.java-logging', name: 'logging', version: '8.0.0'
 
   testImplementation group: 'org.springframework.boot', name: 'spring-boot-starter-test'
-  testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.5.7'
+  testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '6.2.0'
   implementation 'com.launchdarkly:launchdarkly-java-server-sdk:7.17.3'
 
   implementation "org.mapstruct:mapstruct:${mapstructVersion}"

@@ -69,7 +69,7 @@ public class RefDataServiceBusSessionPuller {
         } catch (IllegalStateException ex) {
             if (noSessionAsNoMessageYet(ex)) {
                 // This happens if at startup there is no message in the queue, so can be ignored.
-                log.info("No session was acquired before the operation timed out.");
+                log.trace("No session was acquired before the operation timed out.");
             } else {
                 log.error("Unexpected state while pulling ref-data messages", ex);
             }

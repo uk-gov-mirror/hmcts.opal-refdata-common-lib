@@ -53,25 +53,22 @@ public class RefDataServiceBusSessionPuller {
         try {
             sessionReceiver = sessionReceiverClient.acceptNextSession();
             if (sessionReceiver == null) {
-                //should not occur in normal running, so defensive coding here
+                // Should not occur in normal running, so defensive coding here.
                 log.debug("No active ref-data Service Bus message sessions found");
             }
             return sessionReceiver;
-        }
-        catch (ServiceBusException ex) {
+        } catch (ServiceBusException ex) {
             if (ex.getReason() == ServiceBusFailureReason.MESSAGING_ENTITY_NOT_FOUND) {
                 log.error("Ref-data Service Bus queue, topic, or subscription could not be found", ex);
             } else {
                 log.error("Unable to communicate with ref-data Service Bus. reason={} isTransient={}",
                     ex.getReason(), ex.isTransient(), ex);
             }
-        }
-        catch (AmqpException e) {
+        } catch (AmqpException e) {
             log.error("Error while pulling ref-data Service Bus session messages", e);
-        }
-        catch (IllegalStateException ex) {
+        } catch (IllegalStateException ex) {
             if (noSessionAsNoMessageYet(ex)) {
-                //This happens if at start up there is no message in the queue, can be ignored
+                // This happens if at startup there is no message in the queue, so can be ignored.
                 log.info("No session was acquired before the operation timed out.");
             } else {
                 log.error("Unexpected state while pulling ref-data messages", ex);
@@ -99,8 +96,7 @@ public class RefDataServiceBusSessionPuller {
                 ex.getReason(), ex.isTransient(), ex);
         } catch (AmqpException ex) {
             log.info("AMQP failure while processing ref-data Service Bus session messages", ex);
-        }
-        catch (RuntimeException ex) {
+        } catch (RuntimeException ex) {
             log.error("Unexpected failure while pulling ref-data Service Bus messages", ex);
             throw ex;
         }

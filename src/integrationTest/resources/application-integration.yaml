@@ -1,0 +1,4 @@
+logging:
+  level:
+    com.azure.core.amqp: OFF
+    com.azure.messaging.servicebus: OFF

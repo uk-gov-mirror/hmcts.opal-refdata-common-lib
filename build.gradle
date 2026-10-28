@@ -162,6 +162,8 @@ dependencies {
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
   implementation group: 'org.springframework.boot', name: 'spring-boot-starter-json'
 
+  implementation 'com.azure:azure-messaging-servicebus:7.17.19'
+  implementation 'com.azure:azure-identity:1.17.0'
   implementation "org.springframework.boot:spring-boot-starter-data-jpa"
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'com.networknt:json-schema-validator:1.5.9'

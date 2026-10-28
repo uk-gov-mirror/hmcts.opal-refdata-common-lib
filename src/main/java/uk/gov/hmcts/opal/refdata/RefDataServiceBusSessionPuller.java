@@ -69,7 +69,7 @@ public class RefDataServiceBusSessionPuller {
         } catch (IllegalStateException ex) {
             if (noSessionAsNoMessageYet(ex)) {
                 // This happens if at startup there is no message in the queue, so can be ignored.
-                log.trace("No session was acquired before the operation timed out.");
+                log.info("No ref-data Service Bus messages found.");
             } else {
                 log.error("Unexpected state while pulling ref-data messages", ex);
             }
@@ -88,8 +88,13 @@ public class RefDataServiceBusSessionPuller {
                 Duration.ofSeconds(properties.getReceiveTimeoutSeconds())
             );
 
+            boolean messagesFound = false;
             for (ServiceBusReceivedMessage message : messages) {
+                messagesFound = true;
                 processMessage(sessionReceiver, message);
+            }
+            if (!messagesFound) {
+                log.info("No ref-data Service Bus messages found. sessionId={}", sessionId);
             }
         } catch (ServiceBusException ex) {
             log.error("Unable to communicate with ref-data Service Bus. reason={} isTransient={}",
